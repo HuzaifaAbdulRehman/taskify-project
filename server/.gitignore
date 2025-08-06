@@ -1,0 +1,14 @@
+# .gitignore for Node.js server
+
+# Ignore node_modules (very important)
+node_modules/
+
+# Ignore dotenv secrets
+.env
+
+# Ignore log files
+*.log
+
+# Ignore system files (optional but useful)
+.DS_Store
+Thumbs.db
