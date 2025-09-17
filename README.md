@@ -413,6 +413,4 @@ SOFTWARE.
 [![GitHub forks](https://img.shields.io/github/forks/HuzaifaAbdulRehman/taskify-pro?style=social)](https://github.com/HuzaifaAbdulRehman/taskify-pro/fork)
 [![GitHub watchers](https://img.shields.io/github/watchers/HuzaifaAbdulRehman/taskify-pro?style=social)](https://github.com/HuzaifaAbdulRehman/taskify-pro)
 
-Made with ❤️ by the Taskify Pro Team
-
 </div>
