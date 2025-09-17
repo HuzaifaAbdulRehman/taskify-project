@@ -90,7 +90,7 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/taskify-pro.git
+   git clone https://github.com/HuzaifaAbdulRehman/taskify-pro.git
    cd taskify-pro
    ```
 
@@ -209,26 +209,29 @@ If you have admin privileges:
    - Monitor user activity and task completion
 
 ## 📸 Screenshots
+ ### Get Started Page![Get](image.png)
+
+ ### Login Page
+ ![Login](image-1.png)
+
+ ### Sign Up Page
+ ![Sign Up](image-2.png)
 
 ### Dashboard View
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](image-3.png)
 *Main dashboard showing task overview and statistics*
 
 ### Task Creation
-![Add Task](screenshots/add-task.png)
+![Add Task](image-4.png)
 *Create new tasks with detailed information*
 
-### Task Management
-![Task Details](screenshots/task-details.png)
-*View and edit individual task details*
 
-### Admin Panel
-![Admin Dashboard](screenshots/admin-dashboard.png)
-*Administrative dashboard for team management*
+### Profile Management
+![Profile Management](image-6.png)
 
-### Mobile View
-![Mobile](screenshots/mobile-view.png)
-*Responsive design on mobile devices*
+
+### Theme Toggle
+![Theme Toggle](image-5.png)
 
 ## 📚 API Documentation
 
@@ -318,7 +321,7 @@ We welcome contributions to Taskify Pro! Here's how you can help:
 
 1. **Fork the Repository**
    ```bash
-   git fork https://github.com/your-username/taskify-pro.git
+   git fork https://github.com/HuzaifaAbdulRehman/taskify-pro.git
    ```
 
 2. **Create a Feature Branch**
@@ -369,7 +372,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ```
 MIT License
 
-Copyright (c) 2024 Taskify Pro Team
+Copyright (c) 2025 Taskify Pro Team
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -393,30 +396,22 @@ SOFTWARE.
 ## 📞 Contact
 
 ### Project Team
-- **Project Lead**: [Your Name Here]
-- **Email**: [your.email@example.com]
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
+- **Project Lead**: Huzaifa Abdul Rehman
+- **Email**: huzaifarehman897@gmail.com
+- **GitHub**: [@HuzaifaAbdulRehman](https://github.com/HuzaifaAbdulRehman)
 
 ### Support
 - **Documentation**: [Full Documentation](DOCUMENTATION.md)
-- **Issues**: [GitHub Issues](https://github.com/your-username/taskify-pro/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/taskify-pro/discussions)
-
-### Acknowledgments
-- Thanks to all contributors who have helped make this project better
-- Special thanks to the React and Node.js communities for excellent documentation
-- Inspired by modern task management applications and productivity tools
-
----
+- **Issues**: [GitHub Issues](https://github.com/HuzaifaAbdulRehman/taskify-pro/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/HuzaifaAbdulRehman/taskify-pro/discussions)
 
 <div align="center">
 
 **⭐ If you found this project helpful, please give it a star! ⭐**
 
-[![GitHub stars](https://img.shields.io/github/stars/your-username/taskify-pro?style=social)](https://github.com/your-username/taskify-pro)
-[![GitHub forks](https://img.shields.io/github/forks/your-username/taskify-pro?style=social)](https://github.com/your-username/taskify-pro/fork)
-[![GitHub watchers](https://img.shields.io/github/watchers/your-username/taskify-pro?style=social)](https://github.com/your-username/taskify-pro)
+[![GitHub stars](https://img.shields.io/github/stars/HuzaifaAbdulRehman/taskify-pro?style=social)](https://github.com/HuzaifaAbdulRehman/taskify-pro)
+[![GitHub forks](https://img.shields.io/github/forks/HuzaifaAbdulRehman/taskify-pro?style=social)](https://github.com/HuzaifaAbdulRehman/taskify-pro/fork)
+[![GitHub watchers](https://img.shields.io/github/watchers/HuzaifaAbdulRehman/taskify-pro?style=social)](https://github.com/HuzaifaAbdulRehman/taskify-pro)
 
 Made with ❤️ by the Taskify Pro Team
 
