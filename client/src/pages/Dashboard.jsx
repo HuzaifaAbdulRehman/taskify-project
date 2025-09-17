@@ -41,12 +41,12 @@ export const Dashboard = () => {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/tasks`,
         {
-          headers: {
+        headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-
+      
       if (response.ok) {
         const data = await response.json();
         setTasks(data);
@@ -85,10 +85,10 @@ export const Dashboard = () => {
         `${import.meta.env.VITE_BACKEND_BASE_URL}/tasks/${taskId}/status`,
         {
           method: "PATCH",
-          headers: {
+        headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+        },
           body: JSON.stringify({ status: newStatus }),
         }
       );
@@ -115,7 +115,7 @@ export const Dashboard = () => {
         `${import.meta.env.VITE_BACKEND_BASE_URL}/tasks/${taskId}`,
         {
           method: "DELETE",
-          headers: {
+        headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
@@ -244,7 +244,7 @@ export const Dashboard = () => {
     >
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
-        <div className="mb-8">
+            <div className="mb-8">
           <h1
             className={`text-3xl font-bold mb-2 ${
               isDarkMode ? "text-white" : "text-gray-900"
@@ -259,7 +259,7 @@ export const Dashboard = () => {
           >
             Here's what's happening with your tasks today.
           </p>
-        </div>
+                    </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -272,8 +272,8 @@ export const Dashboard = () => {
               color={card.color}
               isLoading={isLoading}
             />
-          ))}
-        </div>
+                ))}
+              </div>
 
         {/* Quick Actions */}
         <div
@@ -291,10 +291,10 @@ export const Dashboard = () => {
             Quick Actions
           </h2>
           <div className="flex flex-wrap gap-4">
-            <Link
-              to="/add-task"
+                    <Link
+                      to="/add-task"
               className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
+                    >
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -307,9 +307,9 @@ export const Dashboard = () => {
                   strokeWidth={2}
                   d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                 />
-              </svg>
+                      </svg>
               <span>Add New Task</span>
-            </Link>
+                    </Link>
             <button
               onClick={() => setFilter("overdue")}
               className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
@@ -332,11 +332,11 @@ export const Dashboard = () => {
                   strokeWidth={2}
                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
-              </svg>
+                      </svg>
               <span>Overdue Tasks ({stats.overdue})</span>
             </button>
-          </div>
-        </div>
+                  </div>
+                </div>
 
         {/* Task Filters */}
         <div className="flex flex-wrap gap-2 mb-6">
@@ -347,7 +347,7 @@ export const Dashboard = () => {
             { key: "completed", label: "Completed" },
             { key: "overdue", label: "Overdue" },
           ].map((filterOption) => (
-            <button
+                    <button
               key={filterOption.key}
               onClick={() => setFilter(filterOption.key)}
               className={`px-4 py-2 rounded-lg transition-colors ${
@@ -359,21 +359,21 @@ export const Dashboard = () => {
               }`}
             >
               {filterOption.label}
-            </button>
+                    </button>
           ))}
-        </div>
+                </div>
 
         {/* Tasks Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {getFilteredTasks().map((task) => (
-            <TaskCard
-              key={task._id}
-              task={task}
-              onStatusChange={handleStatusChange}
-              onDelete={handleDeleteTask}
-              isDarkMode={isDarkMode}
-            />
-          ))}
+                          <TaskCard
+                          key={task._id}
+                            task={task}
+                            onStatusChange={handleStatusChange}
+                            onDelete={handleDeleteTask}
+                            isDarkMode={isDarkMode}
+                          />
+                      ))}
         </div>
 
         {/* Empty State */}

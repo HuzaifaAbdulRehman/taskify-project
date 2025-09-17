@@ -190,7 +190,7 @@ const GetStarted = () => {
       <footer className={`px-6 py-8 border-t ${isDarkMode ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white'}`}>
         <div className="max-w-7xl mx-auto text-center">
           <p className="opacity-60">
-            © 2024 Taskify Pro. All rights reserved. Built with ❤️ for productivity.
+            © 2025 Taskify Pro. All rights reserved. 
           </p>
         </div>
       </footer>

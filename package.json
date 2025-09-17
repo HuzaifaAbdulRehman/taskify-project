@@ -26,5 +26,8 @@
   },
   "engines": {
     "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server-filesystem": "^2025.8.21"
   }
-} 
+}
