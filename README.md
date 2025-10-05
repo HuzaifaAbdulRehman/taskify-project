@@ -402,8 +402,6 @@ SOFTWARE.
 
 ### Support
 - **Documentation**: [Full Documentation](DOCUMENTATION.md)
-- **Issues**: [GitHub Issues](https://github.com/HuzaifaAbdulRehman/taskify-pro/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/HuzaifaAbdulRehman/taskify-pro/discussions)
 
 <div align="center">
 
