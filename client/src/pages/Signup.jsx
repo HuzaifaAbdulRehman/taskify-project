@@ -59,7 +59,8 @@ export const Signup = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/auth/register`, {
+      const API_BASE = (import.meta.env.VITE_BACKEND_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001/api');
+      const response = await fetch(`${API_BASE}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
