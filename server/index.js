@@ -33,11 +33,8 @@ app.use(express.urlencoded({ extended: true }));
 const connectDB = async () => {
   try {
     const mongoUri = process.env.MONGO_URI;
-    console.log('🔗 Connecting to MongoDB:', mongoUri);
-    await mongoose.connect(mongoUri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    console.log('🔗 Connecting to MongoDB');
+    await mongoose.connect(mongoUri);
     console.log('✅ MongoDB connected successfully');
   } catch (err) {
     console.error('❌ MongoDB connection failed:', err.message);

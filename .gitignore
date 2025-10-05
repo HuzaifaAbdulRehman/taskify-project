@@ -38,3 +38,5 @@ coverage/
 node_modules/
 client/.env
 client/.env
+client/.env
+.env
