@@ -141,7 +141,7 @@ const Sidebar = ({ isOpen, isCollapsed, onClose, onToggleCollapse }) => {
               )}
             </button>
 
-            {isProfileOpen && (
+            {isProfileOpen && !isCollapsed && (
               <div className={`absolute bottom-full left-0 right-0 mb-2 rounded-lg shadow-lg border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
                 <button
                   onClick={toggleDarkMode}
