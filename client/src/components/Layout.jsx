@@ -6,6 +6,7 @@ import Topbar from './Topbar';
 const Layout = ({ children }) => {
   const { isDarkMode } = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleMenuToggle = () => {
@@ -14,6 +15,10 @@ const Layout = ({ children }) => {
 
   const handleSidebarClose = () => {
     setSidebarOpen(false);
+  };
+
+  const toggleSidebarCollapse = () => {
+    setSidebarCollapsed(!sidebarCollapsed);
   };
 
   const handleSearch = (query) => {
@@ -25,13 +30,20 @@ const Layout = ({ children }) => {
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       {/* Sidebar */}
-      <Sidebar isOpen={sidebarOpen} onClose={handleSidebarClose} />
-      
+      <Sidebar
+        isOpen={sidebarOpen}
+        isCollapsed={sidebarCollapsed}
+        onClose={handleSidebarClose}
+        onToggleCollapse={toggleSidebarCollapse}
+      />
+
       {/* Topbar */}
       <Topbar onMenuToggle={handleMenuToggle} onSearch={handleSearch} />
-      
-      {/* Main Content */}
-      <div className="lg:ml-64 pt-16">
+
+      {/* Main Content - Dynamic margin based on sidebar state */}
+      <div className={`transition-all duration-300 pt-16 ${
+        sidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64'
+      }`}>
         <main className="min-h-screen">
           {children}
         </main>

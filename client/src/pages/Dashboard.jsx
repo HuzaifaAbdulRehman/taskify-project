@@ -31,9 +31,9 @@ export const Dashboard = () => {
   useEffect(() => {
     fetchTasks();
 
-    // Keyboard shortcuts
+    // Keyboard shortcuts - Alt+N avoids browser conflicts
     const handleKeyPress = (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+      if (e.altKey && e.key === 'n') {
         e.preventDefault();
         window.location.href = '/add-task';
       }
@@ -406,9 +406,6 @@ export const Dashboard = () => {
               />
             </svg>
           </div>
-          <p className={`text-xs mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-            💡 Tip: Press <kbd className="px-2 py-1 rounded bg-gray-600 text-white text-xs">Ctrl+N</kbd> to create a new task quickly!
-          </p>
         </div>
 
         {/* Task Filters */}

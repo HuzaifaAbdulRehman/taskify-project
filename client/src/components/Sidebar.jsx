@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/useAuth';
 import { useTheme } from '../contexts/useTheme';
 
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = ({ isOpen, isCollapsed, onClose, onToggleCollapse }) => {
   const { user, logout } = useAuth();
   const { isDarkMode, toggleDarkMode } = useTheme();
   const location = useLocation();
@@ -40,29 +40,55 @@ const Sidebar = ({ isOpen, onClose }) => {
 
       {/* Sidebar */}
       <div className={`
-        fixed top-0 left-0 h-full z-50 transform transition-transform duration-300 ease-in-out
+        fixed top-0 left-0 h-full z-50 transform transition-all duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
-        w-64 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}
+        ${isCollapsed ? 'w-20' : 'w-64'}
+        ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}
         border-r ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}
       `}>
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}">
-          <Link to="/dashboard" className="flex items-center space-x-2">
+        <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} p-6 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+          <Link to="/dashboard" className={`flex items-center ${isCollapsed ? '' : 'space-x-2'}`}>
             <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
             </div>
-            <span className="text-xl font-bold">Taskify Pro</span>
+            {!isCollapsed && <span className="text-xl font-bold">Taskify Pro</span>}
           </Link>
-          <button
-            onClick={onClose}
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+          {!isCollapsed && (
+            <>
+              <button
+                onClick={onClose}
+                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              {/* Collapse button - desktop only */}
+              <button
+                onClick={onToggleCollapse}
+                className="hidden lg:block p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                title="Toggle sidebar"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                </svg>
+              </button>
+            </>
+          )}
+          {isCollapsed && (
+            <button
+              onClick={onToggleCollapse}
+              className="hidden lg:block absolute top-6 -right-3 p-1.5 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700"
+              title="Expand sidebar"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
         </div>
 
         {/* Navigation */}
@@ -72,18 +98,19 @@ const Sidebar = ({ isOpen, onClose }) => {
               key={item.path}
               to={item.path}
               onClick={onClose}
+              title={isCollapsed ? item.label : ''}
               className={`
-                flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200
-                ${isActive(item.path) 
-                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200' 
+                flex items-center ${isCollapsed ? 'justify-center' : 'space-x-3'} px-4 py-3 rounded-lg transition-all duration-200
+                ${isActive(item.path)
+                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
                   : 'hover:bg-gray-100 dark:hover:bg-gray-800'
                 }
               `}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
               </svg>
-              <span className="font-medium">{item.label}</span>
+              {!isCollapsed && <span className="font-medium">{item.label}</span>}
             </Link>
           ))}
         </nav>
@@ -93,20 +120,25 @@ const Sidebar = ({ isOpen, onClose }) => {
           <div className="relative">
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center space-x-3 w-full p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+              className={`flex items-center ${isCollapsed ? 'justify-center' : 'space-x-3'} w-full p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200`}
+              title={isCollapsed ? user?.name : ''}
             >
               <img
                 src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.name}&background=random`}
                 alt={user?.name}
-                className="w-8 h-8 rounded-full"
+                className="w-8 h-8 rounded-full flex-shrink-0"
               />
-              <div className="flex-1 text-left">
-                <p className="font-medium text-sm">{user?.name}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{user?.role}</p>
-              </div>
-              <svg className={`w-4 h-4 transition-transform duration-200 ${isProfileOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              {!isCollapsed && (
+                <>
+                  <div className="flex-1 text-left">
+                    <p className="font-medium text-sm">{user?.name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{user?.role}</p>
+                  </div>
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${isProfileOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </>
+              )}
             </button>
 
             {isProfileOpen && (
