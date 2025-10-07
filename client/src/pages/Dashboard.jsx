@@ -282,13 +282,23 @@ export const Dashboard = () => {
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
             <div className="mb-8">
-          <h1
-            className={`text-3xl font-bold mb-2 ${
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+            </div>
+            <h1 className={`text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent`}>
+              Taskify Pro
+            </h1>
+          </div>
+          <h2
+            className={`text-2xl font-semibold mb-2 ${
               isDarkMode ? "text-white" : "text-gray-900"
             }`}
           >
             Welcome back, {user?.name}!
-          </h1>
+          </h2>
           <p
             className={`text-lg ${
               isDarkMode ? "text-gray-300" : "text-gray-600"
