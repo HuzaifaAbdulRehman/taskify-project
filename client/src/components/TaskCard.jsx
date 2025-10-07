@@ -13,6 +13,20 @@ const TaskCard = ({ task, onStatusChange, onDelete, isDarkMode }) => {
     });
   };
 
+  const getDueDateStatus = (dueDate) => {
+    const due = new Date(dueDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    due.setHours(0, 0, 0, 0);
+
+    const diffDays = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) return { label: 'Overdue', color: 'text-red-600 dark:text-red-400', bgColor: 'bg-red-100 dark:bg-red-900' };
+    if (diffDays === 0) return { label: 'Due Today', color: 'text-orange-600 dark:text-orange-400', bgColor: 'bg-orange-100 dark:bg-orange-900' };
+    if (diffDays === 1) return { label: 'Due Tomorrow', color: 'text-yellow-600 dark:text-yellow-400', bgColor: 'bg-yellow-100 dark:bg-yellow-900' };
+    return { label: `Due in ${diffDays} days`, color: 'text-gray-600 dark:text-gray-400', bgColor: '' };
+  };
+
   const getStatusColor = (status) => {
     if (isDarkMode) {
       switch (status) {
@@ -185,7 +199,19 @@ const TaskCard = ({ task, onStatusChange, onDelete, isDarkMode }) => {
 
       {/* Dates */}
       <div className={`flex items-center justify-between text-xs mb-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-        <span>Due: {formatDate(task.dueDate)}</span>
+        <div className="flex items-center space-x-2">
+          {task.status !== 'completed' && (() => {
+            const dueDateStatus = getDueDateStatus(task.dueDate);
+            return (
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${dueDateStatus.bgColor} ${dueDateStatus.color}`}>
+                {dueDateStatus.label}
+              </span>
+            );
+          })()}
+          {task.status === 'completed' && (
+            <span className="text-xs">Due: {formatDate(task.dueDate)}</span>
+          )}
+        </div>
         <span>Created: {formatDate(task.createdAt)}</span>
       </div>
 

@@ -75,9 +75,8 @@ export const Signup = () => {
       const data = await response.json();
 
       if (response.ok) {
-        loginWithToken(data.token, data.user);
-        toast.success('Account created successfully!');
-        navigate('/dashboard');
+        toast.success('Account created successfully! Please sign in to continue.');
+        setTimeout(() => navigate('/login'), 1500);
       } else {
         toast.error(data.message || 'Registration failed');
       }

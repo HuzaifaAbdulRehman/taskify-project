@@ -26,9 +26,25 @@ export const Dashboard = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchTasks();
+
+    // Keyboard shortcuts
+    const handleKeyPress = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+        e.preventDefault();
+        window.location.href = '/add-task';
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('search-input')?.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
   }, []);
 
   useEffect(() => {
@@ -99,7 +115,13 @@ export const Dashboard = () => {
             task._id === taskId ? { ...task, status: newStatus } : task
           )
         );
-        toast.success("Task status updated successfully");
+
+        // Celebration for completion
+        if (newStatus === 'completed') {
+          toast.success("🎉 Task completed! Great job!");
+        } else {
+          toast.success("Task status updated successfully");
+        }
       } else {
         toast.error("Failed to update task status");
       }
@@ -136,22 +158,37 @@ export const Dashboard = () => {
   };
 
   const getFilteredTasks = () => {
+    let filtered = tasks;
+
+    // Apply status filter
     switch (filter) {
       case "todo":
-        return tasks.filter((task) => task.status === "todo");
+        filtered = filtered.filter((task) => task.status === "todo");
+        break;
       case "in-progress":
-        return tasks.filter((task) => task.status === "in-progress");
+        filtered = filtered.filter((task) => task.status === "in-progress");
+        break;
       case "completed":
-        return tasks.filter((task) => task.status === "completed");
+        filtered = filtered.filter((task) => task.status === "completed");
+        break;
       case "overdue":
-        return tasks.filter((task) => {
+        filtered = filtered.filter((task) => {
           const dueDate = new Date(task.dueDate);
           const today = new Date();
           return dueDate < today && task.status !== "completed";
         });
-      default:
-        return tasks;
+        break;
     }
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      filtered = filtered.filter((task) =>
+        task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        task.description?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    return filtered;
   };
 
   const statsCards = [
@@ -338,6 +375,42 @@ export const Dashboard = () => {
                   </div>
                 </div>
 
+        {/* Search Bar */}
+        <div className={`mb-6 p-4 rounded-xl ${
+          isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
+        }`}>
+          <div className="relative">
+            <input
+              id="search-input"
+              type="text"
+              placeholder="Search tasks... (Ctrl+K)"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={`w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                isDarkMode
+                  ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
+                  : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500'
+              }`}
+            />
+            <svg
+              className="absolute left-3 top-2.5 w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </div>
+          <p className={`text-xs mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+            💡 Tip: Press <kbd className="px-2 py-1 rounded bg-gray-600 text-white text-xs">Ctrl+N</kbd> to create a new task quickly!
+          </p>
+        </div>
+
         {/* Task Filters */}
         <div className="flex flex-wrap gap-2 mb-6">
           {[
@@ -378,45 +451,57 @@ export const Dashboard = () => {
 
         {/* Empty State */}
         {getFilteredTasks().length === 0 && !isLoading && (
-          <div
-            className={`text-center py-12 ${
-              isDarkMode ? "text-gray-400" : "text-gray-500"
-            }`}
-          >
-            <svg
-              className="w-16 h-16 mx-auto mb-4 opacity-50"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-              />
-            </svg>
-            <h3 className="text-xl font-semibold mb-2">No tasks found</h3>
-            <p className="mb-4">Get started by creating your first task.</p>
-            <Link
-              to="/add-task"
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-              <span>Add Your First Task</span>
-            </Link>
+          <div className={`text-center py-16 px-4 ${
+            isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
+          } rounded-2xl shadow-lg`}>
+            <div className="max-w-md mx-auto">
+              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                <svg
+                  className="w-12 h-12 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                  />
+                </svg>
+              </div>
+              <h3 className={`text-2xl font-bold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                {searchQuery ? 'No tasks match your search' : tasks.length === 0 ? 'No tasks yet!' : 'No tasks in this filter'}
+              </h3>
+              <p className={`text-lg mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                {searchQuery
+                  ? 'Try adjusting your search terms'
+                  : tasks.length === 0
+                  ? 'Start organizing your work by creating your first task'
+                  : 'Try selecting a different filter to see your tasks'}
+              </p>
+              {tasks.length === 0 && (
+                <Link
+                  to="/add-task"
+                  className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 font-semibold"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                  <span>Create Your First Task</span>
+                </Link>
+              )}
+            </div>
           </div>
         )}
       </div>

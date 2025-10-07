@@ -105,7 +105,7 @@ const GetStarted = () => {
               to="/signup"
               className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
             >
-              Start Free Trial
+              Get Started Free
             </Link>
             <Link
               to="/login"
