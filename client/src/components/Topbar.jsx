@@ -4,22 +4,13 @@ import { useAuth } from '../contexts/useAuth';
 import { useTheme } from '../contexts/useTheme';
 import { toast } from 'react-toastify';
 
-const Topbar = ({ onMenuToggle, onSearch }) => {
+const Topbar = ({ onMenuToggle }) => {
   const { user, logout } = useAuth();
   const { isDarkMode } = useTheme();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   if (!user) return null;
-
-  const handleSearch = (e) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    if (onSearch) {
-      onSearch(query);
-    }
-  };
 
   const handleProfileSettings = () => {
     setIsProfileOpen(false);
@@ -43,8 +34,8 @@ const Topbar = ({ onMenuToggle, onSearch }) => {
       ${isDarkMode ? 'bg-gray-900 text-white border-b border-gray-700' : 'bg-white text-gray-900 border-b border-gray-200'}
       shadow-sm
     `}>
-      {/* Left side - Menu button and title */}
-      <div className="flex items-center space-x-4">
+      {/* Left side - Menu button */}
+      <div className="flex items-center">
         <button
           onClick={onMenuToggle}
           className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -53,33 +44,10 @@ const Topbar = ({ onMenuToggle, onSearch }) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        
-        <div className="hidden lg:block">
-          <h1 className="text-xl font-semibold">Taskify Pro</h1>
-        </div>
       </div>
 
-      {/* Right side - Search and user profile */}
+      {/* Right side - User profile only */}
       <div className="flex items-center space-x-4">
-        {/* Search bar */}
-        <div className="hidden md:block relative">
-          <input
-            type="text"
-            placeholder="Search tasks..."
-            value={searchQuery}
-            onChange={handleSearch}
-            className={`
-              w-64 px-4 py-2 pl-10 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500
-              ${isDarkMode 
-                ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400' 
-                : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500'
-              }
-            `}
-          />
-          <svg className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </div>
 
         {/* User profile dropdown */}
         <div className="relative">

@@ -7,7 +7,6 @@ const Layout = ({ children }) => {
   const { isDarkMode } = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const handleMenuToggle = () => {
     setSidebarOpen(!sidebarOpen);
@@ -21,12 +20,6 @@ const Layout = ({ children }) => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
 
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-    // You can implement global search functionality here
-    console.log('Search query:', query);
-  };
-
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       {/* Sidebar */}
@@ -38,7 +31,7 @@ const Layout = ({ children }) => {
       />
 
       {/* Topbar */}
-      <Topbar onMenuToggle={handleMenuToggle} onSearch={handleSearch} />
+      <Topbar onMenuToggle={handleMenuToggle} />
 
       {/* Main Content - Dynamic margin based on sidebar state */}
       <div className={`transition-all duration-300 pt-16 ${
