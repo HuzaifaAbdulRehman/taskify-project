@@ -61,11 +61,28 @@ app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Taskify API Server',
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth',
+      tasks: '/api/tasks',
+      users: '/api/users'
+    },
+    documentation: 'Visit /api/health for health check'
+  });
+});
+
 // Health check route
 app.get('/api/health', (req, res) => {
   const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
-  res.json({ 
-    status: 'OK', 
+  res.json({
+    status: 'OK',
     message: 'Taskify API is running',
     database: dbStatus,
     timestamp: new Date().toISOString()
