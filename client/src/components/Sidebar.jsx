@@ -40,7 +40,7 @@ const Sidebar = ({ isOpen, isCollapsed, onClose, onToggleCollapse }) => {
 
       {/* Sidebar */}
       <div className={`
-        fixed top-0 left-0 h-full z-50 transform transition-all duration-300 ease-in-out
+        fixed top-0 left-0 h-full z-50 transform transition-all duration-300 ease-in-out overflow-hidden
         ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
         ${isCollapsed ? 'w-20' : 'w-64'}
         ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}
@@ -48,13 +48,13 @@ const Sidebar = ({ isOpen, isCollapsed, onClose, onToggleCollapse }) => {
       `}>
         {/* Header */}
         <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} p-6 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-          <Link to="/dashboard" className={`flex items-center ${isCollapsed ? '' : 'space-x-2'}`}>
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+          <Link to="/dashboard" className={`flex items-center ${isCollapsed ? '' : 'space-x-2'} min-w-0`}>
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
             </div>
-            {!isCollapsed && <span className="text-xl font-bold">Taskify Pro</span>}
+            {!isCollapsed && <span className="text-xl font-bold whitespace-nowrap">Taskify Pro</span>}
           </Link>
           {!isCollapsed && (
             <>
