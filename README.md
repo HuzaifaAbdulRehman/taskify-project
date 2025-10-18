@@ -317,7 +317,68 @@ taskify-pro/
 
 We welcome contributions to Taskify Pro! Here's how you can help:
 
-### How to Contribute
+### Working as a Collaborator
+
+If you've been added as a collaborator to this repository by the owner:
+
+1. **View Repositories Where You're a Collaborator**
+   
+   There are several ways to find repositories where you've been added as a collaborator:
+   
+   **Method 1: Through Your Profile**
+   - Go to [GitHub](https://github.com)
+   - Click on your profile icon in the top right
+   - Select **"Your repositories"** from the dropdown menu
+   - Repositories where you're a collaborator will be listed alongside your own
+   
+   **Method 2: Direct Repository URL**
+   - If you know the repository name, visit it directly: `https://github.com/HuzaifaAbdulRehman/taskify-project`
+   
+   **Method 3: GitHub Notifications**
+   - When added as a collaborator, you'll receive an email notification from GitHub
+   - The email contains a direct link to the repository
+   
+   **Method 4: Repository Search**
+   - Go to `https://github.com/search`
+   - Search for the repository name
+   - Look for repositories where you have collaborator access
+
+2. **Clone the Repository**
+   ```bash
+   git clone https://github.com/HuzaifaAbdulRehman/taskify-project.git
+   cd taskify-project
+   ```
+
+3. **Create a Feature Branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+4. **Make Your Changes**
+   - Follow the existing code style
+   - Add tests for new functionality
+   - Update documentation as needed
+
+5. **Commit Your Changes**
+   ```bash
+   git commit -m "Add your feature description"
+   ```
+
+6. **Push to the Repository**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+7. **Create a Pull Request**
+   - Go to the repository on GitHub
+   - Click "Pull requests" > "New pull request"
+   - Select your branch and create the PR
+   - Describe your changes clearly
+   - Wait for code review and approval
+
+### How to Contribute (Non-Collaborators)
+
+If you're not a collaborator, you can still contribute by forking:
 
 1. **Fork the Repository**
    ```bash
